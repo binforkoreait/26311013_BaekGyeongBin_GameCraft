@@ -22,4 +22,32 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Player.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="Zombie.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="ResourceManager.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="Game.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="GameInput.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="GameTime.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="GameStateController.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="ZombieManager.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="GameRenderer.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="GraphicEngine.cpp"><Filter>소스 파일</Filter></ClCompile>
+    <ClCompile Include="App.cpp"><Filter>소스 파일</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math2D.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="SpriteAnimation.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="Player.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="Zombie.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="ResourceManager.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="Game.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="GameInput.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="GameTime.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="GameStateController.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="ZombieManager.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="GameRenderer.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="GraphicEngine.h"><Filter>헤더 파일</Filter></ClInclude>
+    <ClInclude Include="App.h"><Filter>헤더 파일</Filter></ClInclude>
+  </ItemGroup>
 </Project>

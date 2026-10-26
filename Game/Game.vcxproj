@@ -71,6 +71,26 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <!-- Optional workaround for machines with mismatched Visual Studio PDB tools. -->
+  <PropertyGroup>
+    <LastZoneSkipPdb Condition="'$(LastZoneSkipPdb)'==''">true</LastZoneSkipPdb>
+    <LastZoneLinkOptions Condition="'$(LastZoneSkipPdb)'=='true'">/DEBUG:NONE</LastZoneLinkOptions>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)_bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)_OBJ\$(Platform)\$(Configuration)\</IntDir>
+    <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalOptions>$(LastZoneLinkOptions) %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -125,11 +145,43 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="_main.cpp" />
+    <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="GameTime.cpp" />
+    <ClCompile Include="GameStateController.cpp" />
+    <ClCompile Include="ZombieManager.cpp" />
+    <ClCompile Include="GameRenderer.cpp" />
+    <ClCompile Include="GraphicEngine.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Zombie.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameInput.h" />
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="GameStateController.h" />
+    <ClInclude Include="ZombieManager.h" />
+    <ClInclude Include="GameRenderer.h" />
+    <ClInclude Include="GraphicEngine.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Zombie.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SpriteAnimation.h" />
+    <ClInclude Include="Math2D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <GameResource Include="Resources\**\*.png;Resources\**\*.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="CopyGameResources" AfterTargets="Build">
+    <Copy SourceFiles="@(GameResource)" DestinationFiles="@(GameResource->'$(OutDir)Resources\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets" Condition="Exists('packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets')" />
   </ImportGroup>
