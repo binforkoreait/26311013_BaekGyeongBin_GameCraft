@@ -22,4 +22,6 @@ private:
     GameStateController state_;
     GameRenderer renderer_;
     Bounds bounds_;
+    int health_ = 5;
+    float damageCooldown_ = 0, survival_ = 0;
 };

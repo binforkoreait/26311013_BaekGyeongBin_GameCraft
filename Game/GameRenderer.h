@@ -9,7 +9,7 @@ class GameRenderer
 public:
     bool Initialize();
     void Render(const ResourceManager& resources, const Player& player,
-                const ZombieManager& zombies, const GameStateController& state, Vec2 mouse) const;
+                const ZombieManager& zombies, const GameStateController& state, Vec2 mouse, int health, float survival) const;
 
 private:
     int pauseFont_ = -1;

@@ -1,5 +1,6 @@
 #include "GameRenderer.h"
 #include <algorithm>
+#include <cstdio>
 
 bool GameRenderer::Initialize()
 {
@@ -9,7 +10,7 @@ bool GameRenderer::Initialize()
 
 void GameRenderer::Render(const ResourceManager& resources, const Player& player,
                           const ZombieManager& zombies, const GameStateController& state,
-                          Vec2 mouse) const
+                          Vec2 mouse, int health, float survival) const
 {
     resources.DrawBackground();
 
@@ -37,7 +38,14 @@ void GameRenderer::Render(const ResourceManager& resources, const Player& player
     {
         resources.DrawCharacter(sprite.row, sprite.frame, sprite.position, sprite.flip);
     }
-    if (state.IsPaused())
+    char hud[128];
+    std::snprintf(hud, sizeof(hud), "HP %d/5   TIME %.1fs", health, survival);
+    g2_FontDrawText(pauseFont_, {120, 25}, 0xFFFFFFFF, hud);
+    if (health <= 0)
+    {
+        g2_FontDrawText(pauseFont_, {350, 290}, 0xFFFF8080, "GAME OVER - R: Restart");
+    }
+    else if (state.IsPaused())
     {
         g2_FontDrawText(pauseFont_, {530, 295}, 0xFFFFD580, "PAUSED");
     }

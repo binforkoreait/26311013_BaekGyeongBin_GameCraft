@@ -41,11 +41,24 @@ bool ResourceManager::Load()
         return false;
     }
     startSound_ = g2_SoundLoad((root / "Sounds" / "start.wav").u8string().c_str());
+    music_ = g2_SoundLoad((root / "Sounds" / "bgm.wav").u8string().c_str());
+    hit_ = g2_SoundLoad((root / "Sounds" / "hit.wav").u8string().c_str());
+    if (startSound_ < 0 || music_ < 0 || hit_ < 0)
+    {
+        error_ = "Cannot load game sounds.";
+        return false;
+    }
+    g2_SoundPlay(music_, true);
     return true;
 }
 
 void ResourceManager::Release()
 {
+    for (int id : {music_, hit_})
+    {
+        if (id >= 0) { g2_SoundStop(id); g2_SoundRelease(id); }
+    }
+    music_ = hit_ = -1;
     if (startSound_ >= 0)
     {
         g2_SoundRelease(startSound_);
@@ -98,4 +111,9 @@ void ResourceManager::PlayStart() const
         g2_SoundReset(startSound_);
         g2_SoundPlay(startSound_);
     }
+}
+
+void ResourceManager::PlayHit() const
+{
+    if (hit_ >= 0) { g2_SoundReset(hit_); g2_SoundPlay(hit_); }
 }
